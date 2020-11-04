@@ -8,24 +8,26 @@
 INSTALL_DIR=.
 IM_SERVER=im-server-*
 
+DB_PROXY_SERVER=db_proxy_server
+ROUTE_SERVER=route_server
 FILE_SERVER=file_server
+MSFS_SERVER=msfs
 LOGIN_SERVER=login_server
 MSG_SERVER=msg_server
-ROUTE_SERVER=route_server
-MSFS_SERVER=msfs
 HTTP_MSG_SERVER=http_msg_server
 PUSH_SERVER=push_server
-DB_PROXY_SERVER=db_proxy_server
+WEBSOCKET_SERVER=push_server
 
 
+DB_PROXY_SERVER_CONF=dbproxyserver.conf
+ROUTE_SERVER_CONF=routeserver.conf
 FILE_SERVER_CONF=fileserver.conf
+MSFS_SERVER_CONF=msfs.conf
 LOGIN_SERVER_CONF=loginserver.conf
 MSG_SERVER_CONF=msgserver.conf
-ROUTE_SERVER_CONF=routeserver.conf
-MSFS_SERVER_CONF=msfs.conf
 HTTP_MSG_SERVER_CONF=httpmsgserver.conf
 PUSH_SERVER_CONF=pushserver.conf
-DB_PROXY_SERVER_CONF=dbproxyserver.conf
+WEBSOCKET_SERVER_CONF=websocket_server.conf
 
 print_hello(){
 	echo "==========================================="
@@ -78,14 +80,16 @@ build_im_server() {
 	if [ $? -eq 0 ]; then
 		echo "unzip im-server successed."
 		set -x
-		cp -f ./conf/$LOGIN_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$LOGIN_SERVER/
-		cp -f ./conf/$MSG_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$MSG_SERVER/
+		cp -f ./conf/$DB_PROXY_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$DB_PROXY_SERVER/
 		cp -f ./conf/$ROUTE_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$ROUTE_SERVER/
 		cp -f ./conf/$FILE_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$FILE_SERVER/
 		cp -f ./conf/$MSFS_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$MSFS_SERVER/
+		cp -f ./conf/$LOGIN_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$LOGIN_SERVER/
+		cp -f ./conf/$MSG_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$MSG_SERVER/
 		cp -f ./conf/$HTTP_MSG_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$HTTP_MSG_SERVER/
 		cp -f ./conf/$PUSH_SERVER_CONF	$INSTALL_DIR/$IM_SERVER/$PUSH_SERVER/
-		cp -f ./conf/$DB_PROXY_SERVER_CONF $INSTALL_DIR/$IM_SERVER/$DB_PROXY_SERVER/
+		cp -f ./conf/$WEBSOCKET_SERVER_CONF	$INSTALL_DIR/$IM_SERVER/$WEBSOCKET_SERVER/
+
 
 		cd $IM_SERVER
 		chmod +x ./sync_lib_for_zip.sh
@@ -110,14 +114,16 @@ build_im_server() {
 
 run_im_server() {
 	cd $INSTALL_DIR/$IM_SERVER
-	./restart.sh $LOGIN_SERVER
+	./restart.sh $DB_PROXY_SERVER
 	./restart.sh $ROUTE_SERVER
-	./restart.sh $MSG_SERVER
 	./restart.sh $FILE_SERVER
 	./restart.sh $MSFS_SERVER
+	./restart.sh $LOGIN_SERVER
+	./restart.sh $MSG_SERVER
 	./restart.sh $HTTP_MSG_SERVER
 	./restart.sh $PUSH_SERVER
-	./restart.sh $DB_PROXY_SERVER
+	./restart.sh $WEBSOCKET_SERVER
+
 }
 
 print_help() {
