@@ -2530,7 +2530,6 @@
 				C054EC2B1B3270D900078809 /* Sources */,
 				C054EC2C1B3270D900078809 /* Frameworks */,
 				C054EC2D1B3270D900078809 /* Resources */,
-				847342FFBE7D348F5800871F /* [CP] Embed Pods Frameworks */,
 				21CDA4B1CC87B2AD79220504 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2550,8 +2549,6 @@
 				C054EC441B3270D900078809 /* Sources */,
 				C054EC451B3270D900078809 /* Frameworks */,
 				C054EC461B3270D900078809 /* Resources */,
-				5AD004D0E7831CEE86420C1B /* [CP] Embed Pods Frameworks */,
-				47D2315E7380668A10602ACE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2779,7 +2776,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh",
 				"${PODS_ROOT}/MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle",
 				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack.png",
 				"${PODS_ROOT}/SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack@2x.png",
@@ -2820,7 +2817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		468A16201B3937150093C314 /* ShellScript */ = {
@@ -2835,51 +2832,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ] || [ \"${CONFIGURATION}\" = \"CI\" ]; then\n\nBUILD_NUMBER=`curl http://www.mogujie.com/mobile/build/increase -F \"identifier=im.teamtalk.tt\" -F \"sign=f41b3c980d33d9d51a0a0df685b20bb9\"`\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BUILD_NUMBER\" \"${INFOPLIST_FILE}\"\nfi";
-		};
-		47D2315E7380668A10602ACE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamTalkTests/Pods-TeamTalkTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5AD004D0E7831CEE86420C1B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamTalkTests/Pods-TeamTalkTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		847342FFBE7D348F5800871F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamTalk/Pods-TeamTalk-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		9920D0C412367CAC80F2B779 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -1,12 +1,9 @@
 package com.mogujie.tt.ui.widget;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.mogujie.tt.utils.CommonUtil;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import com.squareup.okhttp.internal.DiskLruCache;
 import com.squareup.okhttp.internal.Util;
 
@@ -19,6 +16,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by zhujian on 15/3/26.
@@ -74,39 +77,57 @@ public class GifLoadTask extends AsyncTask<String, Void, byte[]> {
     }
 
     public byte[] byteArrayHttpClient(final String urlString) throws Exception {
-        OkHttpClient client = null;
+		OkHttpClient  client = null;
         if (client == null) {
-            client = new OkHttpClient();
-            Cache responseCache = new Cache(CommonUtil.getImageSavePath(), 2*1024*1024);
-            client.setCache(responseCache);
-            client.setReadTimeout(30, java.util.concurrent.TimeUnit.SECONDS);
-            client.setConnectTimeout(30, java.util.concurrent.TimeUnit.SECONDS);
+			client = new okhttp3.OkHttpClient.Builder()
+				.addInterceptor(interceptor)
+				.cache(new Cache(CommonUtil.getImageSavePath(), 20 * 1024 * 1024))
+				.connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+				.readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+				.build();
         }
-        FilterInputStream inputStream = getFromCache(urlString);
-        if (inputStream != null) {
-            return IOUtils.toByteArray(inputStream);
-        }
-        InputStream in = null;
-        try {
-            final String decodedUrl = URLDecoder.decode(urlString, "UTF-8");
-            final URL url = new URL(decodedUrl);
-            final Request request = new Request.Builder().url(url).build();
-            final Response response = client.newCall(request).execute();
-            in = response.body().byteStream();
-            return IOUtils.toByteArray(in);
-        } catch (final MalformedURLException e) {
-        } catch (final OutOfMemoryError e) {
-        } catch (final UnsupportedEncodingException e) {
-        } catch (final IOException e) {
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (final IOException ignored) {
-                }
-            }
-        }
-        return null;
+
+		FilterInputStream inputStream = getFromCache(urlString);
+		if (inputStream != null) {
+			return IOUtils.toByteArray(inputStream);
+		}
+		InputStream in = null;
+		try {
+			final String decodedUrl = URLDecoder.decode(urlString, "UTF-8");
+			final URL url = new URL(decodedUrl);
+			final okhttp3.Request request = new Request.Builder().url(url).build();
+			final Response response = client.newCall(request).execute();
+			in = response.body().byteStream();
+			return IOUtils.toByteArray(in);
+		} catch (final MalformedURLException e) {
+		} catch (final OutOfMemoryError e) {
+		} catch (final UnsupportedEncodingException e) {
+		} catch (final IOException e) {
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (final IOException ignored) {
+				}
+			}
+		}
+		return null;
     }
+	Interceptor interceptor = new Interceptor() {
+		@Override
+		public okhttp3.Response intercept(Chain chain) throws IOException {
+			okhttp3.Request request = chain.request();
+			okhttp3.Response response = chain.proceed(request);
+
+			String cacheControl = request.cacheControl().toString();
+			if (TextUtils.isEmpty(cacheControl)) {
+				cacheControl = "public, max-age=6000";
+			}
+			return response.newBuilder()
+				.header("Cache-Control", cacheControl)
+				.removeHeader("Pragma")
+				.build();
+		}
+	};
 }
 

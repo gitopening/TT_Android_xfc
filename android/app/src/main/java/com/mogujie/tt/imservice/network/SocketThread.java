@@ -66,7 +66,7 @@ public class SocketThread extends Thread {
 		});
 
 		clientBootstrap.setOption("tcpNoDelay", true);
-		clientBootstrap.setOption("keepAlive", true);
+		clientBootstrap.setOption("keepAlive", false);
 		// clientBootstrap.setOption("keepIdle", 20);
 		// clientBootstrap.setOption("keepInterval", 5);
 		// clientBootstrap.setOption("keepCount", 3);

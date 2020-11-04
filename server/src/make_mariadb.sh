@@ -88,7 +88,7 @@ download() {
 build_mariadb_devel(){
     CENTOS_VERSION=$(less /etc/redhat-release)
     #echo "$OS_VERSION, $OS_BIT bit..." 
-    if [[ $CENTOS_VERSION =~ "7.0" ]]; then
+    if [[ $CENTOS_VERSION =~ "7" ]]; then
         yum -y install mariadb-devel
     else
         download $MARIADB_DEVEL.rpm $MARIADB_DEVEL_DOWNLOAD_PATH

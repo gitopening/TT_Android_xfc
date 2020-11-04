@@ -9,10 +9,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.mogujie.tt.BuildConfig;
 import com.mogujie.tt.R;
 import com.mogujie.tt.config.SysConstant;
 import com.mogujie.tt.ui.activity.MessageActivity;
@@ -170,8 +173,12 @@ public class PhotoHelper {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePhotoSavePath = CommonUtil.getImageSavePath(String.valueOf(System
                 .currentTimeMillis()) + ".jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(new File(takePhotoSavePath)));
+		if (Build.VERSION.SDK_INT >= 24)
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider", new File(takePhotoSavePath)));
+		else
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(takePhotoSavePath)));
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                Uri.fromFile(new File(takePhotoSavePath)));
         // intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
         ((MessageActivity) context).startActivityForResult(intent,
                 SysConstant.CAMERA_WITH_DATA);

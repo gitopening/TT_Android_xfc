@@ -8,6 +8,8 @@ import com.mogujie.tt.imservice.event.TransferFileEvent;
 import com.mogujie.tt.imservice.network.TransferFileTask;
 import com.mogujie.tt.protobuf.IMBaseDefine;
 import com.mogujie.tt.protobuf.IMFile;
+import com.mogujie.tt.ui.activity.MessageActivity;
+import com.mogujie.tt.utils.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import de.greenrobot.event.EventBus;
 public class IMTransferFileManager  extends IMManager{
 
     private static final IMTransferFileManager ourInstance = new IMTransferFileManager();
-
+	private Logger logger = Logger.getLogger(IMTransferFileManager.class);
     List<TransferFileTask> offlineFileTasks = new ArrayList<>();
 
     public static IMTransferFileManager instance() {
@@ -69,6 +71,7 @@ public class IMTransferFileManager  extends IMManager{
         IMSocketManager.instance().sendRequest(req, sid, cid, new Packetlistener() {
             @Override
             public void onSuccess(Object response) {
+				logger.d("onSuccess:");
                 try {
                     IMFile.IMFileHasOfflineRsp rsp = IMFile.IMFileHasOfflineRsp.parseFrom((CodedInputStream)response);
                     synchronized (offlineFileTasks) {
@@ -99,12 +102,12 @@ public class IMTransferFileManager  extends IMManager{
 
             @Override
             public void onFaild() {
-
+				logger.d("onFaild:");
             }
 
             @Override
             public void onTimeout() {
-
+				logger.d("onTimeout:");
             }
         });
     }
@@ -112,9 +115,16 @@ public class IMTransferFileManager  extends IMManager{
 
     public void sendOfflineFileToUser(final File file, final int fromUser, final int toId, final TransferFileTask.TransferCallBack callback) {
         IMFile.IMFileReq req = IMFile.IMFileReq.newBuilder()
-                .setFileName(file.getName()).setFileSize((int) file.length()).setFromUserId(fromUser).setTransMode(IMBaseDefine.TransferFileType.FILE_TYPE_OFFLINE).setToUserId(toId).build();
+			.setFileName(file.getName())
+			.setFileSize((int) file.length())
+			.setFromUserId(fromUser)
+			.setTransMode(IMBaseDefine.TransferFileType.FILE_TYPE_OFFLINE)
+			.setToUserId(toId)
+			.build();
+
         int sid = IMBaseDefine.ServiceID.SID_FILE_VALUE;
         int cid = IMBaseDefine.FileCmdID.CID_FILE_REQUEST_VALUE;
+
         IMSocketManager.instance().sendRequest(req, sid, cid, new Packetlistener() {
             @Override
             public void onSuccess(Object response) {

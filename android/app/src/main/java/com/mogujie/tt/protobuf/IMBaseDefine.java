@@ -99,6 +99,7 @@ public final class IMBaseDefine {
     public static final int SID_GROUP_VALUE = 4;
     /**
      * <code>SID_FILE = 5;</code>
+	 * suppression
      */
     public static final int SID_FILE_VALUE = 5;
     /**

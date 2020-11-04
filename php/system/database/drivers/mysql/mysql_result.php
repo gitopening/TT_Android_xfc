@@ -38,7 +38,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * MySQL Result Class
+ *  Result Class
  *
  * This class extends the parent result class: CI_DB_result
  *

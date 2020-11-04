@@ -6,14 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.mogujie.tt.config.SysConstant;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.internal.DiskLruCache;
-import com.squareup.okhttp.internal.Util;
-
-import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

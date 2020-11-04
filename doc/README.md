@@ -2,8 +2,8 @@
 
 	服务端对pb,hiredis,mysql_client,log4cxx有依赖，所以服务端需要先安装pb，hiredis,mysql,log4cxx。
 	在正式编译服务端之前，请先执行server/src目录下的：
-	make_hiredis.sh
-	make_log4cxx.sh
+	make_hiredis.sh(需安装unzip gcc gcc-c++)
+	make_log4cxx.sh(检查log4cxx版本: https://archive.apache.org/dist/logging/log4cxx/0.10.0/apache-log4cxx-0.10.0.tar.gz)
 	make_mariadb.sh
 	make_protobuf.sh
 	这些脚本会先安装以上依赖。
