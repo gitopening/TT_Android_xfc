@@ -27,7 +27,7 @@ LOGIN_SERVER_CONF=loginserver.conf
 MSG_SERVER_CONF=msgserver.conf
 HTTP_MSG_SERVER_CONF=httpmsgserver.conf
 PUSH_SERVER_CONF=pushserver.conf
-WEBSOCKET_SERVER_CONF=websocket_server.conf
+WEBSOCKET_SERVER_CONF=websocketserver.conf
 
 print_hello(){
 	echo "==========================================="
