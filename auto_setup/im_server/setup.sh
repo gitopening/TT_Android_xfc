@@ -16,7 +16,7 @@ LOGIN_SERVER=login_server
 MSG_SERVER=msg_server
 HTTP_MSG_SERVER=http_msg_server
 PUSH_SERVER=push_server
-WEBSOCKET_SERVER=push_server
+WEBSOCKET_SERVER=websocket_server
 
 
 DB_PROXY_SERVER_CONF=dbproxyserver.conf
@@ -146,6 +146,9 @@ case $1 in
 		build_im_server
 		run_im_server
 		;;
+    start)
+        run_im_server
+        ;;
 	*)
 		print_help
 		;;
