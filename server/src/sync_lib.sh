@@ -33,3 +33,7 @@ cp slog/lib/liblog4cxx.so.* ../run/db_proxy_server/
 cp slog/log4cxx.properties ../run/msfs/
 cp slog/libslog.so  ../run/msfs/
 cp slog/lib/liblog4cxx.so.* ../run/msfs/
+
+cp slog/log4cxx.properties ../run/websocket_server/
+cp slog/libslog.so  ../run/websocket_server/
+cp slog/lib/liblog4cxx.so.* ../run/websocket_server/
