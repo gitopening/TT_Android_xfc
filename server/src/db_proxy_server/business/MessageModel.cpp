@@ -57,7 +57,7 @@ uint32_t CMessageModel::getMsgIdFromDb(uint32_t nRelateId){
 			if (pResultSet)
 			{
 				if(pResultSet->Next()){
-					maxMsgId =  pResultSet->GetInt("max(msgId)");
+					maxMsgId =  pResultSet->GetInt("msgId");
 				}
 				delete pResultSet;
 			}

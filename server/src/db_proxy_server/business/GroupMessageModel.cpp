@@ -413,7 +413,7 @@ uint32_t CGroupMessageModel::getMsgIdFromDb(uint32_t nGroupId)
 		{
 			if (pResultSet->Next())
 			{
-				maxMsgId = pResultSet->GetInt("max(msgId)");
+				maxMsgId = pResultSet->GetInt("msgId");
 			}
 			delete pResultSet;
 		}
