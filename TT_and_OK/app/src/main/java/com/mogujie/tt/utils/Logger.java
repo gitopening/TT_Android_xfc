@@ -11,9 +11,11 @@ public class Logger {
 	/**
 	 * log tag
 	 */
-	private String tagName = "MoGuLogger";// tag name
-//	private static int logLevel = Log.ERROR;
-	private static int logLevel = Log.DEBUG;
+	private String tagName = "ttLogger";// tag name
+	private static int logLevel = Log.VERBOSE;
+
+	//	private static int logLevel = Log.ERROR;
+//	private static int logLevel = Log.DEBUG;
 
 	private static Logger inst;
 	private Lock lock;
@@ -74,6 +76,7 @@ public class Logger {
 			try {
 				String message = createMessage(getInputString(format, args));
 				Log.i(tagName, message);
+				MLoggerFile.i(tagName+message);
 			} finally {
 				lock.unlock();
 			}
@@ -89,6 +92,8 @@ public class Logger {
 			try {
 				String message = createMessage(getInputString(format, args));
 				Log.v(tagName, message);
+				MLoggerFile.i(tagName+message);
+
 			} finally {
 				lock.unlock();
 			}
@@ -103,6 +108,7 @@ public class Logger {
 			lock.lock();
 			try {
 				String message = createMessage(getInputString(format, args));
+				MLoggerFile.i(tagName+message);
 				Log.d(tagName, message);
 			} finally {
 				lock.unlock();
@@ -119,6 +125,8 @@ public class Logger {
 			try {
 				String message = createMessage(getInputString(format, args));
 				Log.e(tagName, message);
+				MLoggerFile.i(tagName+message);
+
 			} finally {
 				lock.unlock();
 			}
@@ -158,6 +166,8 @@ public class Logger {
 					}
 				}
 				Log.e(tagName, sb.toString());
+				MLoggerFile.i(tagName+sb);
+
 			} finally {
 				lock.unlock();
 			}
@@ -172,6 +182,8 @@ public class Logger {
 			try {
 				String message = createMessage(getInputString(format, args));
 				Log.w(tagName, message);
+				MLoggerFile.i(tagName+message);
+
 			} finally {
 				lock.unlock();
 			}
