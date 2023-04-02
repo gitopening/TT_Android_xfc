@@ -108,8 +108,8 @@ public class Logger {
 			lock.lock();
 			try {
 				String message = createMessage(getInputString(format, args));
-				MLoggerFile.i(tagName+message);
 				Log.d(tagName, message);
+				MLoggerFile.i(tagName+message);
 			} finally {
 				lock.unlock();
 			}

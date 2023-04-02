@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.mogujie.tt.DB.entity.UserEntity;
 import com.mogujie.tt.R;
 import com.mogujie.tt.config.SysConstant;
+import com.mogujie.tt.ui.activity.ChangePwdActivity;
 import com.mogujie.tt.utils.IMUIHelper;
 import com.mogujie.tt.imservice.event.UserInfoEvent;
 import com.mogujie.tt.imservice.manager.IMLoginManager;
@@ -38,7 +39,7 @@ public class MyFragment extends MainFragment {
 	private View curView = null;
 	private View contentView;
 	private View exitView;
-    private View clearView;
+    private View clearView,changePwd;
     private View settingView;
 
     private IMServiceConnector imServiceConnector = new IMServiceConnector(){
@@ -90,6 +91,7 @@ public class MyFragment extends MainFragment {
 		contentView = curView.findViewById(R.id.content);
         exitView = curView.findViewById(R.id.exitPage);
         clearView = curView.findViewById(R.id.clearPage);
+        changePwd = curView.findViewById(R.id.change_pwd);
         settingView = curView.findViewById(R.id.settingPage);
 
         clearView.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +176,13 @@ public class MyFragment extends MainFragment {
             public void onClick(View v) {
                 // 跳转到配置页面
                 startActivity(new Intent(MyFragment.this.getActivity(), SettingActivity.class));
+            }
+        });
+        changePwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 跳转到配置页面
+                startActivity(new Intent(MyFragment.this.getActivity(), ChangePwdActivity.class));
             }
         });
 		hideContent();

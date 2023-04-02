@@ -154,6 +154,9 @@
 		<activity
 			android:name=".ui.activity.ShowTransferFileActivity"
 			android:screenOrientation="portrait"></activity>
+		<activity
+			android:name=".ui.activity.ChangePwdActivity"
+			android:screenOrientation="portrait"></activity>
 
 	</application>
 

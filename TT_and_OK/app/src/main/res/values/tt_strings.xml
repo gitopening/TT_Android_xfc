@@ -14,6 +14,7 @@
     <string name="confirm">确定</string>
     <string name="exit">退出</string>
     <string name="thumb_remove">清理图片缓存</string>
+    <string name="change_pwd">修改密码</string>
     <string name="notify_setting">通知设置</string>
     <string name="thumb_remove_finish">清理完成</string>
     <string name="title_activity_preview">PreviewActivity</string>

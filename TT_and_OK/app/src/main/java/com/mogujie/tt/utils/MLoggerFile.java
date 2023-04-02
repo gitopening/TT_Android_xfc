@@ -37,18 +37,20 @@ public final class MLoggerFile {
         String timestr = formatter.format(curDate);
 //        String logFilename = String.format("/data/tombstones/HmiLogs/pcHmi%s.log", timestr);
 //        String logFilePath = String.format("/data/tombstones/hmiLogs");
+//        String logFilePath = String.format("ateamtalk/39_119/log");
 //        String logFilePath = String.format("/sdcard/mtklog/mobilelog/mobilesclog/hLogs");
 //        String logFilePath = String.format("/teamtalk/39_119");
 //        String logFilename = String.format("/pcHmi%s.log", timestr);
+//        String logFilename = String.format("ateamtalk/39_119/log/c%s.log", timestr);
         String logFilename = String.format("ateamtalk/39_119/log/c%s.log", timestr);
 
 //        File apkPathFile = new File(Environment.getExternalStorageDirectory(),logFilePath);
         File apkPathFile = new File(Environment.getExternalStorageDirectory(),logFilename);
 //        File apkPathFile = new File(logFilePath,logFilename);
 //        File apkPathFile = new File(logFilePath);
-//        if (!apkPathFile.exists()) {
-//            apkPathFile.mkdirs();
-//        }
+        if (!apkPathFile.exists()) {
+            apkPathFile.mkdirs();
+        }
 //        mFile = new File(apkPathFile, logFilename);
 
         try {
