@@ -9,13 +9,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.protobuf.CodedInputStream;
 import com.mogujie.tt.DB.sp.ConfigurationSp;
 import com.mogujie.tt.R;
 import com.mogujie.tt.config.SysConstant;
+import com.mogujie.tt.imservice.callback.Packetlistener;
+import com.mogujie.tt.imservice.event.LoginEvent;
 import com.mogujie.tt.imservice.service.IMService;
 import com.mogujie.tt.imservice.support.IMServiceConnector;
+import com.mogujie.tt.protobuf.IMBaseDefine;
+import com.mogujie.tt.protobuf.IMLogin;
 import com.mogujie.tt.ui.base.TTBaseFragment;
 import com.mogujie.tt.ui.helper.CheckboxConfigHelper;
+
+import java.io.IOException;
 
 /**
  * 设置页面
@@ -111,13 +118,14 @@ public class ChangePwdFragment extends TTBaseFragment{
 				HideKeyboard(btnChange);
 //				logger.d("--d-changepwdfragment");
 				logger.i("-i--changepwdfragment");
-//				attemptLogin();
+				gotoReg();
 			}
 		});
 	}
 
 	@Override
 	protected void initHandler() {
+
 	}
 
 
@@ -128,5 +136,49 @@ public class ChangePwdFragment extends TTBaseFragment{
 			imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
 
 		}
+	}
+
+
+	protected void gotoReg() {
+
+		String desPassword = password.getText().toString();
+		String desPasswordNew = password.getText().toString();
+
+		desPassword = new String(com.mogujie.tt.Security.getInstance().EncryptPass(desPassword));
+		desPasswordNew = new String(com.mogujie.tt.Security.getInstance().EncryptPass(desPasswordNew));
+
+
+//
+//		IMLogin.IMModifyPasswordReq imLoginReq = IMLogin.IMLoginReq.newBuilder()
+//				.setUserName(desPassword)
+//				.setPassword(desPwd)
+//				.setOnlineStatus(IMBaseDefine.UserStatType.USER_STATUS_ONLINE)
+//				.setClientType(IMBaseDefine.ClientType.CLIENT_TYPE_ANDROID)
+//				.setClientVersion("1.0.0").build();
+//
+//		int sid = IMBaseDefine.ServiceID.SID_LOGIN_VALUE;
+//		int cid = IMBaseDefine.LoginCmdID.CID_LOGIN_REQ_USERLOGIN_VALUE;
+//		imSocketManager.sendRequest(imLoginReq,sid,cid,new Packetlistener() {
+//			@Override
+//			public void onSuccess(Object response) {
+//				try {
+//					IMLogin.IMLoginRes  imLoginRes = IMLogin.IMLoginRes.parseFrom((CodedInputStream)response);
+//					onRepMsgServerLogin(imLoginRes);
+//				} catch (IOException e) {
+//					triggerEvent(LoginEvent.LOGIN_INNER_FAILED);
+//					logger.e("login failed,cause by %s",e.getCause());
+//				}
+//			}
+//
+//			@Override
+//			public void onFaild() {
+//				triggerEvent(LoginEvent.LOGIN_INNER_FAILED);
+//			}
+//
+//			@Override
+//			public void onTimeout() {
+//				triggerEvent(LoginEvent.LOGIN_INNER_FAILED);
+//			}
+//		});
 	}
 }
